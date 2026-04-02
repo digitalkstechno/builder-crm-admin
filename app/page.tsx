@@ -326,8 +326,8 @@ const Dashboard = () => {
                   />
                   <Tooltip 
                     cursor={{ fill: 'transparent' }}
-                    contentStyle={{ backgroundColor: '#1a1e28', border: '1px solid #ffffff18', borderRadius: '8px' }}
-                    itemStyle={{ color: '#f0f2f8', fontSize: '12px' }}
+                    contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e6f0', borderRadius: '8px' }}
+                    itemStyle={{ color: '#0f1117', fontSize: '12px' }}
                     labelStyle={{ display: 'none' }}
                   />
                 </BarChart>
