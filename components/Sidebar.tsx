@@ -9,12 +9,19 @@ import {
   CreditCard, 
   MessageSquare, 
   BarChart3, 
-  Settings 
+  Settings,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '@/redux/slices/authSlice';
+import { toast } from 'react-hot-toast';
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const dispatch = useDispatch();
   
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, section: 'Overview', href: '/' },
@@ -31,6 +38,13 @@ export const Sidebar = () => {
     if (href === '/' && pathname === '/') return true;
     if (href !== '/' && pathname.startsWith(href)) return true;
     return false;
+  };
+
+  const handleLogout = () => {
+    document.cookie = "admin_token=; path=/; max-age=0";
+    dispatch(setAuth({ user: null, token: null }));
+    toast.success("Signed out successfully");
+    router.push('/login');
   };
 
   return (
@@ -80,9 +94,9 @@ export const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-slate-100">
-        <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
-          <div className="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-sm">
+      <div className="p-4 border-t border-slate-100 space-y-2">
+        <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+          <div className="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-sm border border-indigo-100">
             SA
           </div>
           <div className="flex-1 min-w-0">
@@ -90,6 +104,14 @@ export const Sidebar = () => {
             <p className="text-[10px] font-medium text-slate-500 truncate">Platform Owner</p>
           </div>
         </div>
+        
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-rose-600 hover:bg-rose-50 rounded-xl transition-all font-bold text-xs uppercase tracking-widest group"
+        >
+          <LogOut size={16} className="group-hover:-translate-x-1 transition-transform" />
+          Logout
+        </button>
       </div>
     </aside>
   );

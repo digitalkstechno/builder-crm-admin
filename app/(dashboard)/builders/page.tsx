@@ -141,11 +141,7 @@ export default function BuildersPage() {
         onSearchChange={handleSearchChange}
         searchValue={searchTerm}
         searchPlaceholder="Search by company or address..."
-        actionButton={
-          <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all shadow-lg shadow-indigo-200 hover:shadow-indigo-300 active:scale-95">
-            + New Builder
-          </button>
-        }
+      
       />
     </motion.div>
   );

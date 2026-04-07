@@ -44,34 +44,36 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] flex items-center justify-center p-4 selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4 selection:bg-indigo-100">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-1/4 w-[800px] h-[800px] bg-indigo-500/10 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-purple-500/10 blur-[100px] rounded-full" />
+        <div className="absolute top-1/4 -left-1/4 w-[800px] h-[800px] bg-indigo-50 blur-[120px] rounded-full opacity-60" />
+        <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-purple-50 blur-[100px] rounded-full opacity-60" />
       </div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-[2.5rem] shadow-2xl p-10 backdrop-blur-xl"
+        className="relative w-full max-w-md bg-white border border-slate-100 rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] p-12"
       >
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6 shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)]">
-            <ShieldCheck size={32} />
+        <div className="text-center mb-12">
+          <div className="w-20 h-20 bg-indigo-600 rounded-[2rem] flex items-center justify-center text-white font-bold text-3xl mx-auto mb-8 shadow-2xl shadow-indigo-200 rotate-3">
+            <ShieldCheck size={40} strokeWidth={2.5} />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2 tracking-tight">Super Admin Portal</h1>
-          <p className="text-slate-400 text-sm font-medium">BuildFlow CRM Administration</p>
+          <h1 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Super Admin</h1>
+          <p className="text-slate-400 text-xs font-black uppercase tracking-[0.2em]">BuildFlow Management Portal</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Admin Email</label>
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Admin Identity</label>
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-500 transition-colors" size={18} />
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-600 transition-colors pointer-events-none">
+                <Mail size={20} strokeWidth={2.5} />
+              </div>
               <input 
                 type="email"
                 required
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-800/50 border border-slate-700 text-white outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all font-medium text-sm"
+                className="w-full pl-14 pr-6 py-4.5 rounded-[1.5rem] bg-slate-50 border border-slate-100 text-slate-900 outline-none focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/5 transition-all font-bold text-sm placeholder:text-slate-300"
                 placeholder="admin@buildflow.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -79,14 +81,16 @@ export default function AdminLoginPage() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Secret Key</label>
+          <div className="space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Access Key</label>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-500 transition-colors" size={18} />
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-600 transition-colors pointer-events-none">
+                <Lock size={20} strokeWidth={2.5} />
+              </div>
               <input 
                 type="password"
                 required
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-800/50 border border-slate-700 text-white outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all font-medium text-sm"
+                className="w-full pl-14 pr-6 py-4.5 rounded-[1.5rem] bg-slate-50 border border-slate-100 text-slate-900 outline-none focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/5 transition-all font-bold text-sm placeholder:text-slate-300"
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
@@ -94,18 +98,20 @@ export default function AdminLoginPage() {
             </div>
           </div>
 
-          <button 
+          <motion.button 
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={loading}
-            className="w-full py-4.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-[0_20px_40px_-10px_rgba(79,70,229,0.3)] flex items-center justify-center gap-3 transition-all disabled:opacity-70 mt-4 active:scale-[0.98]"
+            className="w-full py-5 rounded-[1.5rem] bg-slate-900 hover:bg-indigo-600 text-white font-black shadow-xl shadow-slate-200 flex items-center justify-center gap-3 transition-all disabled:opacity-70 mt-4 tracking-widest uppercase text-xs"
           >
-            {loading ? <Loader2 className="animate-spin" /> : "Authenticate"}
-            {!loading && <ArrowRight size={18} />}
-          </button>
+            {loading ? <Loader2 className="animate-spin" size={20} /> : "Authorize Access"}
+            {!loading && <ArrowRight size={20} strokeWidth={3} />}
+          </motion.button>
         </form>
 
-        <div className="mt-10 pt-8 border-t border-slate-800 text-center">
-          <p className="text-slate-500 text-[10px] uppercase font-bold tracking-[0.2em]">Authorized Access Only</p>
+        <div className="mt-12 pt-8 border-t border-slate-50 text-center">
+          <p className="text-slate-300 text-[9px] uppercase font-black tracking-[0.3em]">Restricted Infrastructure</p>
         </div>
       </motion.div>
     </div>

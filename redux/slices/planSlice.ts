@@ -36,7 +36,9 @@ export const fetchPlans = createAsyncThunk('plan/fetchPlans', async (_, { reject
 export const createPlan = createAsyncThunk('plan/createPlan', async (planData: Plan, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.post('/plan', planData);
-    return response.data.data;
+    // Refresh the list from the server to ensure consistency
+    const refreshResponse = await axiosInstance.get('/plan');
+    return { created: response.data.data, all: refreshResponse.data.data };
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || 'Failed to create plan');
   }
@@ -45,7 +47,9 @@ export const createPlan = createAsyncThunk('plan/createPlan', async (planData: P
 export const updatePlan = createAsyncThunk('plan/updatePlan', async ({ id, data }: { id: string, data: Partial<Plan> }, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.put(`/plan/${id}`, data);
-    return response.data.data;
+    // Refresh the list to ensure all state is synced
+    const refreshResponse = await axiosInstance.get('/plan');
+    return { updated: response.data.data, all: refreshResponse.data.data };
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || 'Failed to update plan');
   }
@@ -82,9 +86,9 @@ const planSlice = createSlice({
       .addCase(createPlan.pending, (state) => {
         state.loading = true;
       })
-      .addCase(createPlan.fulfilled, (state, action: PayloadAction<Plan>) => {
+      .addCase(createPlan.fulfilled, (state, action: PayloadAction<{ created: Plan, all: Plan[] }>) => {
         state.loading = false;
-        state.plans.unshift(action.payload); // Add to top
+        state.plans = action.payload.all; // Use the refreshed list
       })
       .addCase(createPlan.rejected, (state, action) => {
         state.loading = false;
@@ -94,12 +98,9 @@ const planSlice = createSlice({
       .addCase(updatePlan.pending, (state) => {
         state.loading = true;
       })
-      .addCase(updatePlan.fulfilled, (state, action: PayloadAction<Plan>) => {
+      .addCase(updatePlan.fulfilled, (state, action: PayloadAction<{ updated: Plan, all: Plan[] }>) => {
         state.loading = false;
-        const index = state.plans.findIndex((p) => p._id === action.payload._id);
-        if (index !== -1) {
-          state.plans[index] = action.payload;
-        }
+        state.plans = action.payload.all; // Use the refreshed list
       })
       .addCase(updatePlan.rejected, (state, action) => {
         state.loading = false;

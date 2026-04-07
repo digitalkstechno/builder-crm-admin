@@ -63,7 +63,7 @@ export default function SubscriptionsPage() {
   const handleToggleStatus = async (plan: Plan) => {
     const newStatus = plan.status === 'active' ? 'inactive' : 'active';
     try {
-      await dispatch(updatePlan({ id: plan._id!, data: { status: newStatus } })).unwrap();
+      await dispatch(updatePlan({ id: plan._id!, data: { ...plan, status: newStatus } })).unwrap();
       toast.success(`Plan ${newStatus === 'active' ? 'activated' : 'deactivated'}`);
     } catch (err: any) {
       toast.error(err || 'Failed to update status');
