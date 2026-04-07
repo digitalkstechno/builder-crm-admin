@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/redux/slices/authSlice';
 import { useRouter } from 'next/navigation';
-import { LogOut } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 export const Sidebar = () => {
   const pathname = usePathname();
@@ -25,29 +25,6 @@ export const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    router.push('/login');
-  };
-  
-  const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, section: 'Overview', href: '/' },
-    { id: 'builders', label: 'Builders', icon: Users, section: 'Management', badge: 24, href: '/builders' },
-    { id: 'subscriptions', label: 'Subscriptions', icon: CreditCard, section: 'Management', href: '/subscriptions' },
-    { id: 'whatsapp', label: 'WhatsApp Control', icon: MessageSquare, section: 'Management', href: '/whatsapp' },
-    { id: 'analytics', label: 'Global Analytics', icon: BarChart3, section: 'Analytics', href: '/analytics' },
-    { id: 'settings', label: 'Settings', icon: Settings, section: 'System', href: '/settings' },
-  ];
-
-  const sections = Array.from(new Set(navItems.map(item => item.section)));
-
-  const isActive = (href: string) => {
-    if (href === '/' && pathname === '/') return true;
-    if (href !== '/' && pathname.startsWith(href)) return true;
-    return false;
-  };
-
-  const handleLogout = () => {
-    document.cookie = "admin_token=; path=/; max-age=0";
-    dispatch(setAuth({ user: null, token: null }));
     toast.success("Signed out successfully");
     router.push('/login');
   };
