@@ -13,15 +13,20 @@ import {
   LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { setAuth } from '@/redux/slices/authSlice';
-import { toast } from 'react-hot-toast';
+import { logout } from '@/redux/slices/authSlice';
+import { useRouter } from 'next/navigation';
+import { LogOut } from 'lucide-react';
 
 export const Sidebar = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/login');
+  };
   
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, section: 'Overview', href: '/' },
@@ -95,8 +100,8 @@ export const Sidebar = () => {
       </nav>
 
       <div className="p-4 border-t border-slate-100 space-y-2">
-        <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
-          <div className="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-sm border border-indigo-100">
+        <div className="flex items-center gap-3 p-2 rounded-xl bg-slate-50/50">
+          <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
             SA
           </div>
           <div className="flex-1 min-w-0">
@@ -107,10 +112,10 @@ export const Sidebar = () => {
         
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 text-rose-600 hover:bg-rose-50 rounded-xl transition-all font-bold text-xs uppercase tracking-widest group"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition-all duration-200 text-sm font-medium group"
         >
-          <LogOut size={16} className="group-hover:-translate-x-1 transition-transform" />
-          Logout
+          <LogOut size={18} className="text-slate-400 group-hover:text-rose-600" />
+          <span>Sign Out</span>
         </button>
       </div>
     </aside>
