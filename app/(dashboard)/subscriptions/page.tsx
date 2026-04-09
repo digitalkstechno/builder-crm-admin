@@ -101,8 +101,8 @@ export default function SubscriptionsPage() {
               {theme.icon}
             </div>
             <div>
-              <div className="text-sm font-black text-slate-900 tracking-tight">{item.planName}</div>
-              <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{item.duration}</div>
+              <div className="text-sm font-semibold text-slate-900">{item.planName}</div>
+              <div className="text-xs text-slate-400">{item.duration}</div>
             </div>
           </div>
         );
@@ -112,9 +112,9 @@ export default function SubscriptionsPage() {
       header: 'Pricing',
       key: 'price',
       render: (item: Plan) => (
-        <div className="flex items-baseline gap-0.5 font-black text-slate-900">
-          <span className="text-[10px] text-slate-400 font-bold">₹</span>
-          <span className="text-sm tracking-tight">{item.price.toLocaleString()}</span>
+        <div className="flex items-baseline gap-0.5 font-bold text-slate-900">
+          <span className="text-xs text-slate-400">₹</span>
+          <span className="text-sm">{item.price.toLocaleString()}</span>
         </div>
       )
     },
@@ -124,18 +124,18 @@ export default function SubscriptionsPage() {
       render: (item: Plan) => (
         <div className="flex items-center gap-3">
           <div className="flex flex-col items-center">
-            <Users size={10} className="text-slate-300 mb-0.5" />
-            <span className="text-[10px] font-black text-slate-600">{item.noOfStaff || '∞'}</span>
+            <Users size={11} className="text-slate-300 mb-0.5" />
+            <span className="text-xs font-semibold text-slate-600">{item.noOfStaff || '∞'}</span>
           </div>
           <div className="w-[1px] h-4 bg-slate-100" />
           <div className="flex flex-col items-center">
-            <Globe size={10} className="text-slate-300 mb-0.5" />
-            <span className="text-[10px] font-black text-slate-600">{item.noOfSites || '∞'}</span>
+            <Globe size={11} className="text-slate-300 mb-0.5" />
+            <span className="text-xs font-semibold text-slate-600">{item.noOfSites || '∞'}</span>
           </div>
           <div className="w-[1px] h-4 bg-slate-100" />
           <div className="flex flex-col items-center">
-            <MessageSquare size={10} className="text-slate-300 mb-0.5" />
-            <span className="text-[10px] font-black text-slate-600">{item.noOfWhatsapp || '∞'}</span>
+            <MessageSquare size={11} className="text-slate-300 mb-0.5" />
+            <span className="text-xs font-semibold text-slate-600">{item.noOfWhatsapp || '∞'}</span>
           </div>
         </div>
       )
@@ -144,14 +144,14 @@ export default function SubscriptionsPage() {
       header: 'Status',
       key: 'status',
       render: (item: Plan) => (
-        <div 
+        <div
           onClick={() => handleToggleStatus(item)}
           className={cn(
             "w-8 h-4.5 rounded-full p-[2px] transition-colors cursor-pointer",
             item.status === 'active' ? "bg-slate-900" : "bg-slate-200"
           )}
         >
-          <motion.div 
+          <motion.div
             animate={{ x: item.status === 'active' ? 14 : 0 }}
             className="w-3.5 h-3.5 bg-white rounded-full shadow-sm"
           />
@@ -168,13 +168,13 @@ export default function SubscriptionsPage() {
             onClick={() => handleEdit(item)}
             className="p-1.5 bg-slate-50 hover:bg-slate-900 hover:text-white rounded-lg text-slate-400 transition-all border border-transparent"
           >
-            <Edit3 size={12} strokeWidth={3} />
+            <Edit3 size={13} strokeWidth={2.5} />
           </button>
           <button
             onClick={() => handleDelete(item._id!)}
             className="p-1.5 bg-rose-50 hover:bg-rose-500 hover:text-white rounded-lg text-rose-400 transition-all border border-rose-100"
           >
-            <Trash2 size={12} strokeWidth={3} />
+            <Trash2 size={13} strokeWidth={2.5} />
           </button>
         </div>
       )
@@ -188,7 +188,7 @@ export default function SubscriptionsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2">
         <div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none mb-1">Subscription Tiers</h1>
-          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Workspace Capacity Console</p>
+        <p className="text-xs text-slate-400">Workspace Capacity Console</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -215,7 +215,7 @@ export default function SubscriptionsPage() {
               <stat.icon size={24} />
             </div>
             <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
+              <p className="text-xs font-semibold text-slate-400">{stat.label}</p>
               <p className="text-xl font-black text-slate-900 mt-0.5">{stat.value}</p>
             </div>
           </div>

@@ -45,18 +45,18 @@ export default function CommonTable({
   rowClassName
 }: CommonTableProps) {
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+    <div className="bg-white border border-slate-100 rounded-2xl shadow-sm">
       <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h3 className="font-bold text-slate-900 text-sm uppercase tracking-wider">{title}</h3>
+        <h3 className="font-bold text-slate-900 text-base">{title}</h3>
         <div className="flex items-center gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
-            <input 
-              type="text" 
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={15} />
+            <input
+              type="text"
               placeholder={searchPlaceholder}
               value={searchValue}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all w-full sm:w-48"
+              className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all w-full sm:w-52"
             />
           </div>
           {actionButton}
@@ -66,9 +66,9 @@ export default function CommonTable({
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-50">
+            <tr className="bg-slate-50/50 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-100">
               {columns.map((col, i) => (
-                <th key={i} className={cn("px-6 py-4", col.className)}>{col.header}</th>
+                <th key={i} className={cn("px-6 py-3.5", col.className)}>{col.header}</th>
               ))}
             </tr>
           </thead>
@@ -78,32 +78,31 @@ export default function CommonTable({
                 <td colSpan={columns.length} className="px-6 py-20 text-center">
                   <div className="flex flex-col items-center justify-center">
                     <Loader2 size={24} className="animate-spin text-indigo-600 mb-2" />
-                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Loading Data...</p>
+                    <p className="text-sm font-medium text-slate-400">Loading data...</p>
                   </div>
                 </td>
               </tr>
             ) : data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="px-6 py-20 text-center text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                <td colSpan={columns.length} className="px-6 py-20 text-center text-slate-400 text-sm font-medium">
                   No records found
                 </td>
               </tr>
             ) : (
               <AnimatePresence mode="popLayout">
                 {data.map((item, idx) => (
-                  <motion.tr 
-                    layout
+                  <motion.tr
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    key={item.id || item._id || idx} 
+                    key={item.id || item._id || idx}
                     className={cn(
                       "hover:bg-slate-50/50 transition-colors group",
                       rowClassName?.(item)
                     )}
                   >
                     {columns.map((col, i) => (
-                      <td key={i} className={cn("px-6 py-4", col.className)}>
+                      <td key={i} className={cn("px-6 py-4 text-sm", col.className)}>
                         {col.render ? col.render(item) : item[col.key]}
                       </td>
                     ))}
@@ -116,28 +115,28 @@ export default function CommonTable({
       </div>
 
       {pagination && (
-        <div className="p-4 border-t border-slate-50 flex items-center justify-between bg-slate-50/30">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+        <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
+          <p className="text-sm text-slate-500 font-medium">
             Showing {pagination.totalItems === 0 ? 0 : (pagination.currentPage - 1) * pagination.limit + 1} to {Math.min(pagination.currentPage * pagination.limit, pagination.totalItems)} of {pagination.totalItems} entries
           </p>
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={() => onPageChange(pagination.currentPage - 1)}
               disabled={pagination.currentPage === 1}
               className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-400 hover:text-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft size={16} />
             </button>
-            
+
             <div className="flex items-center gap-1">
               {[...Array(Math.max(1, pagination.totalPages))].map((_, i) => (
                 <button
                   key={i}
                   onClick={() => onPageChange(i + 1)}
                   className={cn(
-                    "w-8 h-8 rounded-lg text-[10px] font-black transition-all",
-                    pagination.currentPage === i + 1 
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100" 
+                    "w-8 h-8 rounded-lg text-sm font-semibold transition-all",
+                    pagination.currentPage === i + 1
+                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100"
                       : "bg-white border border-slate-200 text-slate-500 hover:border-indigo-600 hover:text-indigo-600"
                   )}
                 >
@@ -146,7 +145,7 @@ export default function CommonTable({
               ))}
             </div>
 
-            <button 
+            <button
               onClick={() => onPageChange(pagination.currentPage + 1)}
               disabled={pagination.currentPage === pagination.totalPages}
               className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-400 hover:text-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"

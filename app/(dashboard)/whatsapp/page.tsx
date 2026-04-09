@@ -108,10 +108,10 @@ export default function WhatsAppAdminPage() {
       key: 'builder',
       render: (item: Site) => (
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-[10px] uppercase border border-indigo-100">
+          <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs uppercase border border-indigo-100">
              {item.builderId?.companyName?.slice(0, 2) || 'B'}
           </div>
-          <span className="font-bold text-slate-900 text-xs tracking-tight">{item.builderId?.companyName || 'Unknown'}</span>
+          <span className="font-semibold text-slate-900 text-sm">{item.builderId?.companyName || 'Unknown'}</span>
         </div>
       )
     },
@@ -120,8 +120,8 @@ export default function WhatsAppAdminPage() {
       key: 'whatsappNumber',
       render: (item: Site) => (
         <div className="flex items-center gap-2">
-          <Smartphone size={12} className="text-slate-400" />
-          <span className="text-[11px] font-bold text-slate-600 tracking-wider whitespace-nowrap">{item.whatsappNumber}</span>
+          <Smartphone size={13} className="text-slate-400" />
+          <span className="text-sm text-slate-600">{item.whatsappNumber}</span>
         </div>
       )
     },
@@ -130,8 +130,8 @@ export default function WhatsAppAdminPage() {
       key: 'name',
       render: (item: Site) => (
         <div className="flex items-center gap-2">
-           < Globe size={12} className="text-indigo-400" />
-           <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100/50">
+           <Globe size={13} className="text-indigo-400" />
+           <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100/50">
              {item.name}
            </span>
         </div>
@@ -141,13 +141,13 @@ export default function WhatsAppAdminPage() {
       header: 'Connection Health',
       key: 'whatsappStatus',
       render: (item: Site) => (
-        <select 
+        <select
           value={item.whatsappStatus === 'connected' ? 'Connected' : 'Disconnected'}
           onChange={(e) => handleStatusChange(item._id, e.target.value)}
           className={cn(
-            "text-[9px] font-black px-2 py-1 rounded border outline-none cursor-pointer uppercase tracking-widest transition-all",
-            item.whatsappStatus === 'connected' 
-              ? "bg-green-50 text-green-600 border-green-200" 
+            "text-xs font-semibold px-2 py-1 rounded border outline-none cursor-pointer transition-all",
+            item.whatsappStatus === 'connected'
+              ? "bg-green-50 text-green-600 border-green-200"
               : "bg-red-50 text-red-600 border-red-200"
           )}
         >
@@ -160,10 +160,10 @@ export default function WhatsAppAdminPage() {
       header: 'Chatbot Engine',
       key: 'chatbotStatus',
       render: (item: Site) => (
-        <button 
+        <button
           onClick={() => handleChatbotToggle(item._id, item.chatbotStatus)}
           className={cn(
-            "flex items-center gap-2 px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border shadow-sm",
+            "flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border shadow-sm",
             item.chatbotStatus === 'active'
               ? "bg-indigo-600 text-white border-indigo-600 shadow-indigo-200"
               : "bg-white text-slate-400 border-slate-100"
@@ -179,14 +179,14 @@ export default function WhatsAppAdminPage() {
       key: 'actions',
       className: 'text-right',
       render: (item: Site) => (
-        <button 
+        <button
           onClick={() => handleUnlink(item._id, item.name)}
           className={cn(
-            "p-2 rounded-lg text-[10px] font-black uppercase transition-all shadow-sm border",
+            "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border",
             (item.deleteRequested || item.isDeleted)
-              ? "bg-rose-600 text-white border-rose-600 shadow-rose-100" 
-              : "bg-white text-slate-400 border-slate-100 hover:text-rose-600",
-            item.isDeleted && "opacity-50 cursor-not-allowed cursor-default"
+              ? "bg-rose-600 text-white border-rose-600"
+              : "bg-white text-slate-500 border-slate-200 hover:text-rose-600 hover:border-rose-200",
+            item.isDeleted && "opacity-50 cursor-not-allowed"
           )}
           title={item.isDeleted ? "Number already unlinked" : "Unlink Number"}
           disabled={item.isDeleted}
@@ -202,7 +202,7 @@ export default function WhatsAppAdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2 border-b border-slate-100 pb-6">
         <div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none mb-2">WhatsApp Hub</h1>
-          <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-2">
+          <p className="text-xs text-slate-400 flex items-center gap-2">
             <Smartphone size={12} className="text-indigo-500" />
             Infrastructure for Builder-Client Messaging
           </p>

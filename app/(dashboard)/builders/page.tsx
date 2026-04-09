@@ -38,15 +38,15 @@ export default function BuildersPage() {
       key: "companyName",
       render: (item: Builder) => (
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-[11px] uppercase">
+          <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs uppercase">
              {item.companyName.slice(0, 2)}
           </div>
           <div>
-            <div className="text-sm font-bold text-slate-900">{item.companyName}</div>
+            <div className="text-sm font-semibold text-slate-900">{item.companyName}</div>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className="text-[10px] text-slate-500 font-medium">{item.userId?.fullName}</span>
-              <span className="text-[10px] text-slate-300">•</span>
-              <span className="text-[10px] text-slate-500 font-medium lowercase italic">{item.userId?.email}</span>
+              <span className="text-xs text-slate-500">{item.userId?.fullName}</span>
+              <span className="text-xs text-slate-300">•</span>
+              <span className="text-xs text-slate-400 italic">{item.userId?.email}</span>
             </div>
           </div>
         </div>
@@ -57,11 +57,11 @@ export default function BuildersPage() {
       key: "phone",
       render: (item: Builder) => (
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-[11px] font-bold text-slate-700">
-             <Phone size={11} className="text-slate-400" />
+          <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
+             <Phone size={13} className="text-slate-400" />
              {item.userId?.phone}
           </div>
-          <div className="text-[10px] text-slate-400 font-medium flex items-center gap-1.5 overflow-hidden max-w-[150px] truncate">
+          <div className="text-xs text-slate-400 flex items-center gap-1.5 max-w-[160px] truncate">
              {item.address}
           </div>
         </div>
@@ -77,20 +77,20 @@ export default function BuildersPage() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 flex-wrap">
               <span className={cn(
-                "text-[10px] font-bold px-2 py-0.5 rounded uppercase",
+                "text-xs font-semibold px-2 py-0.5 rounded",
                 activeSub?.planName === 'Enterprise' ? "bg-indigo-100 text-indigo-700" : "bg-slate-100 text-slate-700"
               )}>
                 {activeSub?.planName || 'No Active Plan'}
               </span>
               {upcomingSub && (
-                <span className="text-[9px] font-bold px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 animate-pulse">
+                <span className="text-xs font-medium px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 animate-pulse">
                   Upcoming Renewal
                 </span>
               )}
             </div>
-            <div className="flex gap-2 text-[10px] font-bold text-slate-500">
-               <span className="flex items-center gap-1"><HardHat size={10} /> {item.currentLimits.noOfSites}</span>
-               <span className="flex items-center gap-1"><Layers size={10} /> {item.currentLimits.noOfStaff}</span>
+            <div className="flex gap-2 text-xs text-slate-500">
+               <span className="flex items-center gap-1"><HardHat size={11} /> {item.currentLimits.noOfSites}</span>
+               <span className="flex items-center gap-1"><Layers size={11} /> {item.currentLimits.noOfStaff}</span>
             </div>
           </div>
         );
@@ -103,9 +103,9 @@ export default function BuildersPage() {
         const activeSub = item.subscriptions.find((s: Subscription) => s.status === 'active');
         return (
           <div className="space-y-1">
-            <div className="text-sm font-black text-slate-900">₹{activeSub?.amountPaid?.toLocaleString()}</div>
-            <div className="flex items-center gap-1 text-[10px] text-slate-400 font-bold uppercase transition-colors hover:text-accent cursor-pointer group">
-               <Calendar size={10} />
+            <div className="text-sm font-bold text-slate-900">₹{activeSub?.amountPaid?.toLocaleString()}</div>
+            <div className="flex items-center gap-1 text-xs text-slate-400">
+               <Calendar size={11} />
                {activeSub ? new Date(activeSub.endDate).toLocaleDateString() : 'N/A'}
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function BuildersPage() {
       key: "isActive",
       render: (item: Builder) => (
         <span className={cn(
-          "text-[10px] font-bold px-2.5 py-1 rounded-full uppercase",
+          "text-xs font-semibold px-2.5 py-1 rounded-full",
           item.isActive ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
         )}>
           {item.isActive ? 'Active' : 'Suspended'}

@@ -16,8 +16,8 @@ export default function AnalyticsPage() {
       key: 'company',
       render: (item: any) => (
         <div>
-          <div className="text-sm font-black text-slate-900 tracking-tight leading-none mb-1">{item.company}</div>
-          <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{item.site}</div>
+          <div className="text-sm font-semibold text-slate-900 mb-0.5">{item.company}</div>
+          <div className="text-xs text-slate-400">{item.site}</div>
         </div>
       )
     },
@@ -26,8 +26,8 @@ export default function AnalyticsPage() {
       key: 'leads',
       render: (item: any) => (
         <div className="flex items-center gap-2">
-           <span className="text-sm font-black text-slate-900 tracking-tight">{item.leads.toLocaleString()}</span>
-           <span className="text-[10px] text-emerald-500 font-bold">↑ 12%</span>
+           <span className="text-sm font-bold text-slate-900">{item.leads.toLocaleString()}</span>
+           <span className="text-xs text-emerald-500 font-medium">↑ 12%</span>
         </div>
       )
     },
@@ -36,7 +36,7 @@ export default function AnalyticsPage() {
       key: 'contacted',
       render: (item: any) => (
         <div className="flex flex-col gap-1.5 min-w-[120px]">
-          <div className="flex justify-between text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+          <div className="flex justify-between text-xs text-slate-400">
             <span>Contacted</span>
             <span>{Math.round(item.leads * 0.8).toLocaleString()}</span>
           </div>
@@ -51,8 +51,8 @@ export default function AnalyticsPage() {
       key: 'visits',
       render: (item: any) => (
         <div className="flex items-center gap-2">
-           <span className="text-xs font-bold text-slate-600">{(item.leads * 0.15).toFixed(0)}</span>
-           <div className="px-2 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-black rounded uppercase border border-amber-100">
+           <span className="text-sm text-slate-600">{(item.leads * 0.15).toFixed(0)}</span>
+           <div className="px-2 py-0.5 bg-amber-50 text-amber-600 text-xs font-medium rounded border border-amber-100">
              High Intent
            </div>
         </div>
@@ -63,8 +63,8 @@ export default function AnalyticsPage() {
       key: 'conversion',
       render: (item: any) => (
         <div className="flex items-center gap-3">
-          <div className="text-sm font-black text-emerald-600">{(item.leads * 0.12).toFixed(0)}</div>
-          <span className="text-[10px] font-black bg-emerald-100 text-emerald-700 px-2 py-1 rounded-lg uppercase">
+          <div className="text-sm font-bold text-emerald-600">{(item.leads * 0.12).toFixed(0)}</div>
+          <span className="text-xs font-semibold bg-emerald-100 text-emerald-700 px-2 py-1 rounded-lg">
             12.4%
           </span>
         </div>
