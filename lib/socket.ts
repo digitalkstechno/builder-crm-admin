@@ -8,6 +8,18 @@ export const getSocket = () => {
     socket = io(socketUrl, {
       path: "/api/socket.io",
     });
+
+    socket.on("connect", () => {
+      console.log("[Socket Admin] Connected:", socket?.id);
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("[Socket Admin] Connection error:", err.message);
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log("[Socket Admin] Disconnected:", reason);
+    });
   }
   return socket;
 };
