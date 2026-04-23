@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { MoreVertical, Mail, Phone, Calendar, Layers, HardHat, Plus, Edit3, Trash2, MessageSquare } from 'lucide-react';
+import { MoreVertical, Mail, Phone, Calendar, Layers, HardHat, Plus, Edit3, Trash2, MessageSquare, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
@@ -10,6 +10,7 @@ import { fetchPlans } from '@/redux/slices/planSlice';
 import CommonTable from '@/components/ui/CommonTable';
 import { motion, AnimatePresence } from 'framer-motion';
 import BuilderModal from '@/components/modals/BuilderModal';
+import RenewPlanModal from '@/components/modals/RenewPlanModal';
 import Swal from 'sweetalert2';
 
 export default function BuildersPage() {
@@ -23,6 +24,10 @@ export default function BuildersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBuilder, setEditingBuilder] = useState<Builder | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+
+  // Renew Modal state
+  const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
+  const [renewingBuilder, setRenewingBuilder] = useState<Builder | null>(null);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -54,6 +59,11 @@ export default function BuildersPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingBuilder(null);
+  };
+
+  const handleOpenRenewModal = (builder: Builder) => {
+    setRenewingBuilder(builder);
+    setIsRenewModalOpen(true);
   };
 
   // Delete handler
@@ -243,7 +253,18 @@ export default function BuildersPage() {
               <MoreVertical size={14} />
             </button>
             {dropdownOpen === item._id && (
-              <div className="absolute right-0 top-full mt-1 w-32 bg-white border border-slate-200 rounded-lg shadow-lg z-10">
+              <div className="absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 rounded-xl shadow-xl z-10 overflow-hidden py-1">
+                <button
+                  onClick={() => {
+                    handleOpenRenewModal(item);
+                    setDropdownOpen(null);
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                >
+                  <Zap size={14} className="text-amber-500" />
+                  Renew Plan
+                </button>
+                <div className="h-px bg-slate-100 mx-2 my-1" />
                 <button
                   onClick={() => {
                     handleDelete(item);
@@ -252,7 +273,7 @@ export default function BuildersPage() {
                   className="w-full flex items-center gap-2 px-3 py-2 text-sm text-rose-600 hover:bg-rose-50 transition-colors"
                 >
                   <Trash2 size={14} />
-                  Delete
+                  Delete Account
                 </button>
               </div>
             )}
@@ -303,6 +324,15 @@ export default function BuildersPage() {
         loading={loading}
         initialData={editingBuilder}
         plans={plans}
+      />
+
+      {/* Renew Plan Modal */}
+      <RenewPlanModal
+        isOpen={isRenewModalOpen}
+        onClose={() => setIsRenewModalOpen(false)}
+        builder={renewingBuilder}
+        plans={plans}
+        onSuccess={() => dispatch(fetchAllBuilders({ page, search: searchTerm }))}
       />
     </motion.div>
   );
