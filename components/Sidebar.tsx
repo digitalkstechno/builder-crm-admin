@@ -61,11 +61,9 @@ export const Sidebar = () => {
     <aside className="w-64 h-screen bg-white border-r border-slate-200 flex flex-col fixed top-0 left-0 z-50">
       <div className="p-6 border-b border-slate-100">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-100">
-            BF
-          </div>
+          <img src="/favicon.png" alt="Logo" className="w-10 h-10 rounded-xl object-contain shadow-lg shadow-indigo-100" />
           <div>
-            <h1 className="font-bold text-slate-900 leading-tight">BuildFlow</h1>
+            <h1 className="font-bold text-slate-900 leading-tight">builderscrm.in</h1>
             <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-1.5 py-0.5 rounded">SUPER ADMIN</span>
           </div>
         </Link>

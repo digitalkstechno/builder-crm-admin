@@ -246,7 +246,7 @@ export default function WhatsAppAdminPage() {
     <div className="max-w-7xl mx-auto space-y-6 pb-20 px-6 pt-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2 border-b border-slate-100 pb-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none mb-2">WhatsApp Hub</h1>
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none mb-2">WhatsApp Numbers</h1>
           <p className="text-xs text-slate-400 flex items-center gap-2">
             <Smartphone size={12} className="text-indigo-500" />
             Infrastructure for Builder-Client Messaging

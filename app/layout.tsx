@@ -10,8 +10,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'BuildFlow CRM — Super Admin',
+  title: 'builderscrm.in — Super Admin',
   description: 'Super Admin dashboard for managing builders, subscriptions, and WhatsApp activity.',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
